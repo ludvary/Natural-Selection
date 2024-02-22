@@ -6,7 +6,7 @@ mutable struct Food
     L::Int64
 
     function Food(L)
-        new(L, rand(1:L), rand(1:L))
+        new(rand(1:L), rand(1:L), L)
     end
 end
 
