@@ -5,8 +5,8 @@ using .FoodJl
 using .CreatureJl
 using LinearAlgebra
 using Statistics
-using Plots
-default(dpi=310)
+using PyPlot
+# default(dpi=310)
 
 const L::Int64 = 600  # box size (change this and the creatues will have to move greater distances to find food, everything will be more dispersed)
 const init_pop_number::Int64 = 10  # number of creatures at generation 0
@@ -120,6 +120,14 @@ function main()
                 push!(age_list, creature.age)
             end
 
+            # scatter([creature.x for creature in list_of_creatures], [creature.y for creature in list_of_creatures])
+            # scatter([food.x for food in list_of_foods], [food.y for food in list_of_foods], color="red")
+            # xlim(0, 600)
+            # ylim(0, 600)
+            # pause(0.1)
+            # cla()
+
+
             # append offspring count, avg age and avg speed into their respective arrays
             offsprings_per_gen[i] = offspring_count
             avg_age_per_gen[i] = mean(age_list)
@@ -140,17 +148,25 @@ function main()
     offsprings_per_gen, avg_speed_per_gen, avg_age_per_gen, gen, population_count = simulate_population(init_pop_number, lifespan_limit, reproduce_rate, no_of_generations, food_per_gen)
 
     # plot
-    plot(gen, avg_speed_per_gen, linewidth=0.9, color="black", legend=:false, grid=:false, xlabel="generations", ylabel="<speed>")
-    savefig("gen vs <speed>.png")
+    plot(gen, avg_speed_per_gen, linewidth=0.9, color="black")
+    xlabel("generation")
+    ylabel("<speed>")
+    savefig("gen vs <speed>.png", dpi=300)
 
-    plot(gen, avg_age_per_gen, linewidth=0.9, color="black", legend=:false, grid=:false, xlabel="generations", ylabel="<age>")
-    savefig("gen vs <age>.png")
+    plot(gen, avg_age_per_gen, linewidth=0.9, color="black")
+    xlabel("generation")
+    ylabel("<age>")
+    savefig("gen vs <age>.png", dpi=300)
 
-    plot(gen, population_count, linewidth=0.9, color="black", legend=:false, grid=:false, xlabel="generation", ylabel="population")
-    savefig("gen vs pop_count.png")
+    plot(gen, population_count, linewidth=0.9, color="black")
+    xlabel("generation")
+    ylabel("population")
+    savefig("gen vs pop_count.png", dpi=300)
 
-    plot(gen, offsprings_per_gen, linewidth=0.9, color="black", legend=:false, grid=:false, xlabel="generations", ylabel="offsprings per generation")
-    savefig("gen vs offsprings.png")
+    plot(gen, offsprings_per_gen, linewidth=0.9, color="black")
+    xlabel("generation")
+    ylabel("offsprings per generation")
+    savefig("gen vs offsprings.png", dpi=300)
 
 end
 
